@@ -3,7 +3,6 @@ import json
 accounts=[]
 
 def create_account():
-    account_dictionary={}
     while True:
         try:
             name=input("Enter your name:")
@@ -29,16 +28,10 @@ def create_account():
                  print("Phone number should contain only digits.")
                  continue
             address=input("Enter your address:")
-            account_dictionary["name"]=name
-            account_dictionary["age"]=age
-            account_dictionary["gender"]=gender
-            account_dictionary["phone number"]=phone_no
-            account_dictionary["address"]=address
-            account_dictionary["account number"]=create_account_number()
-            account_dictionary["transactions"]=[]
-            account_dictionary["balance"]=0
-
-            accounts.append(account_dictionary)
+            account=BankAccount(name, age, gender, phone_no,address)
+            accounts.append(account)
+            print(f"Account created successfully!")
+            print(f"Account Number: {account.account_number}")
             break
         except ValueError:
             print("Invalid Choice. Try again.")
@@ -48,22 +41,25 @@ def create_account_number():
         new_account_number=random.randrange(10000,100000)
         is_unique=True
         for account in accounts:
-            if account["account number"]==new_account_number:
+            if account.account_number==new_account_number:
                 is_unique=False
         if is_unique:
             return new_account_number
 
 class BankAccount:
 
-    def __init__(self, name):
+    def __init__(self, name, age, gender, phone_no,address):
         self.name = name
         self.balance = 0
         self.account_number=create_account_number()
         self.transactions=[]
-
+        self.gender= gender
+        self.phone_no= phone_no
+        self.age= age
+        self.address= address
     def deposit(self,deposit_amount):
         self.balance+=deposit_amount
-        print(self.name,"has deposited",deposit_amount,".")
+        print(f"{self.name} deposited ₹{deposit_amount}.")
         self.transactions.append(f"Deposited ₹{deposit_amount}")
 
     def withdraw(self,withdrawal):
@@ -71,33 +67,22 @@ class BankAccount:
             print("Insufficient funds.")
             return
         self.balance-=withdrawal
-        print(self.name,"has withdrawn",withdrawal,".")
+        print(f"{self.name} has withdrawn {withdrawal}.")
         self.transactions.append(f"Withdrew ₹{withdrawal}")
 
     def show_transactions(self):
-        print(self.transactions)
+        for transaction in self.transactions:
+            print(transaction)
 
     def show_balance(self):
         print("The current balance is",self.balance)
 
-rithu=BankAccount("Rithu")
-rithu.deposit(500)
-rithu.withdraw(600)
-rithu.show_balance()
+print("Choose from the Menu")
+print("1 Create Account")
+print("2 Deposit")
+print("3 Withdraw")
+print("4 Balance")
+print("5 Transactions")
+print("6 Exit")
 
-def create_account_number():
-    while True:
-        new_account_number=random.randrange(10000,100000)
-        is_unique=True
-        for account in accounts:
-            if account["account number"]==new_account_number:
-                is_unique=False
-        if is_unique:
-            return new_account_number
-                
-
-
-                
-
-
-
+create_account()
