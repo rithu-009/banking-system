@@ -1,0 +1,15 @@
+[
+    {
+        "account_number": 25697,
+        "name": "vishal",
+        "age": 18,
+        "gender": "Male",
+        "phone_no": "9443913611",
+        "address": "vadavalli",
+        "balance": 200,
+        "transactions": [
+            "Deposited \u20b9500",
+            "Withdrew \u20b9300"
+        ]
+    }
+]
